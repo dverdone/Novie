@@ -89,4 +89,9 @@ public class SqlAggrega extends PhysicalSqlColumn {
         returnValue.append(getSqlString());
         return returnValue.toString();
     }
+
+    @Override
+    public String getColumnIdentifier() {
+        return columnName;
+    }
 }

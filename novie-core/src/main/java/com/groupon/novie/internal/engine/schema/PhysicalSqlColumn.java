@@ -63,12 +63,12 @@ public class PhysicalSqlColumn extends AbstractSqlColumn {
 
     @Override
     public String getSqlString() {
-        return this.getSqlTable().getTableName() + '.' + columnName;
+        return this.getSqlTable().getAlias() + '.' + columnName;
     }
 
     @Override
     public String getAlias() {
-        return this.getSqlTable().getTableName() + '_' + columnName;
+        return this.getSqlTable().getAlias() + '_' + columnName;
     }
 
     public void addForeignKey(AbstractSqlColumn referencedColumn) {
@@ -111,7 +111,7 @@ public class PhysicalSqlColumn extends AbstractSqlColumn {
 
     @Override
     public String getColumnIdentifier() {
-        return columnName;
+        return getSqlString();
     }
 
 }

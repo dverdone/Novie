@@ -45,6 +45,8 @@ import com.groupon.novie.internal.engine.schema.FactTable;
 public class SchemaConfigImplTest {
 
     private SchemaDefinitionImpl ssci;
+    private String factTableAlias;
+    private String dtAlias;
 
     @Before
     public void init() {
@@ -64,6 +66,8 @@ public class SchemaConfigImplTest {
         factTable.addTableColumn("col2", ColumnDataType.INTEGER);
         ssci.setFactTable(factTable);
         ssci.addTZAliases("CST", "America/Chicago");
+        factTableAlias = factTable.getAlias();
+        dtAlias =dt.getAlias();
 
     }
 
@@ -147,16 +151,16 @@ public class SchemaConfigImplTest {
 
     @Test
     public void testBuildAndValidateConfig() throws Exception {
-        ssci.addSqlForeignKey(ImmutablePair.of("fact_table", "col1"), ImmutablePair.of("test_table", "col2"));
+        ssci.addSqlForeignKey(ImmutablePair.of(factTableAlias, "col1"), ImmutablePair.of(dtAlias, "col2"));
 
         final Collection<Error> errors = ssci.buildAndValidateConfig();
-        Assert.assertEquals(errors.size(), 1);
+        Assert.assertEquals(1, errors.size());
         Assert.assertEquals(errors.iterator().next().getMessage(), "No default Timezone configured");
         Assert.assertEquals(ssci.predecessorRelation.size(), 2);
-        Assert.assertTrue(ssci.predecessorRelation.containsKey("test_table"));
-        Assert.assertTrue(ssci.predecessorRelation.get("test_table").containsKey("fact_table"));
-        Assert.assertTrue(ssci.predecessorRelation.containsKey("fact_table"));
-        Assert.assertTrue(ssci.predecessorRelation.get("fact_table").containsKey("test_table"));
+        Assert.assertTrue(ssci.predecessorRelation.containsKey(dtAlias));
+        Assert.assertTrue(ssci.predecessorRelation.get(dtAlias).containsKey(factTableAlias));
+        Assert.assertTrue(ssci.predecessorRelation.containsKey(factTableAlias));
+        Assert.assertTrue(ssci.predecessorRelation.get(factTableAlias).containsKey(dtAlias));
         Assert.assertTrue(ssci.isLinkedToFactTable(ssci.getDimensionByName("myDimension", null)));
     }
 }

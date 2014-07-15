@@ -132,7 +132,7 @@ public final class SchemaDefinitionImpl implements SchemaDefinition {
      */
     @Override
     public boolean areLinked(SqlTable table1, SqlTable table2) {
-        return predecessorRelation.get(table1.getTableName()).containsKey(table2.getTableName());
+        return predecessorRelation.get(table1.getAlias()).containsKey(table2.getAlias());
     }
 
     /*
@@ -355,21 +355,21 @@ public final class SchemaDefinitionImpl implements SchemaDefinition {
         }
         column1.addForeignKey(column2);
         column2.addForeignKey(column1);
-        Map<String, SqlTable> stringSqlTableMap = predecessorRelation.get(column1.getSqlTable().getSqlString());
+        Map<String, SqlTable> stringSqlTableMap = predecessorRelation.get(column1.getSqlTable().getAlias());
         if (stringSqlTableMap == null) {
             stringSqlTableMap = Maps.newHashMap();
-            predecessorRelation.put(column1.getSqlTable().getSqlString(), stringSqlTableMap);
+            predecessorRelation.put(column1.getSqlTable().getAlias(), stringSqlTableMap);
         }
 
-        stringSqlTableMap.put(column2.getSqlTable().getTableName(), column2.getSqlTable());
+        stringSqlTableMap.put(column2.getSqlTable().getAlias(), column2.getSqlTable());
 
-        stringSqlTableMap = predecessorRelation.get(column2.getSqlTable().getSqlString());
+        stringSqlTableMap = predecessorRelation.get(column2.getSqlTable().getAlias());
         if (stringSqlTableMap == null) {
             stringSqlTableMap = Maps.newHashMap();
-            predecessorRelation.put(column2.getSqlTable().getSqlString(), stringSqlTableMap);
+            predecessorRelation.put(column2.getSqlTable().getAlias(), stringSqlTableMap);
         }
 
-        stringSqlTableMap.put(column1.getSqlTable().getTableName(), column1.getSqlTable());
+        stringSqlTableMap.put(column1.getSqlTable().getAlias(), column1.getSqlTable());
     }
 
     /**
@@ -409,7 +409,7 @@ public final class SchemaDefinitionImpl implements SchemaDefinition {
     public void addTZAlternateDimension(String orignalDimensionName, DimensionTable alternateDimension, String tzName) {
         addSupportedTZ(tzName);
         if (tzNamesAliases.containsValue(tzName)) {
-            sqlTables.put(alternateDimension.getTableName(), alternateDimension);
+            sqlTables.put(alternateDimension.getAlias(), alternateDimension);
             alternateDimensions.put(Pair.of(orignalDimensionName.toUpperCase(), tzName), alternateDimension);
         } else {
             LOG.error("Unsuported timezone: " + tzName);
@@ -424,7 +424,7 @@ public final class SchemaDefinitionImpl implements SchemaDefinition {
      * @param mandatory Add if true, remove otherwise
      */
     public void addDimension(DimensionTable table, boolean mandatory) {
-        sqlTables.put(table.getTableName(), table);
+        sqlTables.put(table.getAlias(), table);
         dimensions.put(table.getDimensionName().toUpperCase(), table);
         if (mandatory) {
             mandatoryDimensionNames.add(table.getDimensionName().toUpperCase(Locale.ENGLISH));
@@ -436,7 +436,7 @@ public final class SchemaDefinitionImpl implements SchemaDefinition {
             throw new IllegalArgumentException("Fact table already setted");
         }
         this.factTable = factTable;
-        sqlTables.put(factTable.getTableName(), factTable);
+        sqlTables.put(factTable.getAlias(), factTable);
     }
 
     public void setDefaultTimezone(String defaultTimezone) {

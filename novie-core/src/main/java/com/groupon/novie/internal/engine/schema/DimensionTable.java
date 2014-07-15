@@ -51,6 +51,8 @@ public class DimensionTable extends SqlTable {
     private Optional<AbstractSqlColumn> defaultSortColumn;
     private Map<String, AbstractSqlColumn> informationNameToColumn;
 
+    private static final String forbiddenSqlCharacters = "[/\\-]";
+
     public DimensionTable(String tableName, String dimensionName) {
         super(tableName);
         this.dimensionName = dimensionName;
@@ -127,6 +129,11 @@ public class DimensionTable extends SqlTable {
     }
 
     @Override
+    public String getAlias() {
+        return   "_" + dimensionName.replaceAll(forbiddenSqlCharacters, "_").toLowerCase();
+    }
+
+    @Override
     public String toString() {
         StringBuilder returnValue = new StringBuilder("Dimension ");
         returnValue.append(dimensionName);
@@ -180,5 +187,26 @@ public class DimensionTable extends SqlTable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        DimensionTable that = (DimensionTable) o;
+
+        if (dimensionName != null ? !dimensionName.equals(that.dimensionName) : that.dimensionName != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (dimensionName != null ? dimensionName.hashCode() : 0);
+        return result;
     }
 }

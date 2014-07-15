@@ -107,7 +107,7 @@ public class GroupByElementTest {
         Optional<GroupByElement> groupByElement = GroupByElement.createGroupByElement(queryBuilderAccess);
         assertTrue(groupByElement.isPresent());
         assertEquals(groupByElement.get().getSqlTables().size(), 1);
-        assertEquals(groupByElement.get().getSqlString().toString(), "testDimension.testColumn, testDimension.testColumn2");
+        assertEquals("_testdimensionname.testColumn, _testdimensionname.testColumn2", groupByElement.get().getSqlString().toString());
 
     }
 }
