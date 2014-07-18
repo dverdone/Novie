@@ -33,7 +33,7 @@
         	<module>novie-qa</module>
 	</modules>
 	<scm>
-		<connection>scm:git:https://github.com/dverdone/Novie.git</connection>
+		<connection>scm:https://github.com/dverdone/Novie.git</connection>
 		<developerConnection>scm:https://github.com/dverdone/Novie.git</developerConnection>
 		<url>https://github.com/dverdone/Novie</url>
 	  <tag>groupon-novie-1.2.1-FORK2</tag>
