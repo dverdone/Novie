@@ -32,12 +32,12 @@
 		<module>novie-core</module>
         	<module>novie-qa</module>
 	</modules>
-<!--	<scm>
+	<scm>
 		<connection>scm:git:git@github.com:groupon/Novie.git</connection>
 		<developerConnection>scm:git:git@github.com:groupon/Novie.git</developerConnection>
 		<url>http://github.com/groupon/Novie</url>
-	  <tag>groupon-novie-1.2.0-FORK</tag>
-  </scm>-->
+	  <tag>groupon-novie-1.2.0-FORK2</tag>
+  </scm>
 
 	<organization>
 		<name>Groupon</name>
