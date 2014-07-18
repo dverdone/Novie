@@ -52,10 +52,10 @@ public class SqlColumnTest {
 
     @Test
     public void testGetters() {
-        Assert.assertEquals(sqlColumn.getColumnName(), "test_col1");
-        Assert.assertEquals(sqlColumn.getAlias(), "test_table_test_col1");
-        Assert.assertEquals(sqlColumn.getSqlString(), "test_table.test_col1");
-        Assert.assertEquals(sqlColumn.getBusinessName(), "test_col1");
+        Assert.assertEquals("test_col1", sqlColumn.getColumnName());
+        Assert.assertEquals("_test_table_test_col1", sqlColumn.getAlias());
+        Assert.assertEquals("_test_table.test_col1", sqlColumn.getSqlString());
+        Assert.assertEquals("test_col1", sqlColumn.getBusinessName());
     }
 
 }

@@ -79,7 +79,7 @@ public class SqlTable implements SqlElement {
      */
     public final boolean containsColumn(String columnName) {
         if (StringUtils.isNotBlank(columnName)) {
-            return sqlTableColumns.containsKey(columnName);
+            return sqlTableColumns.containsKey(getAlias() + "." + columnName);
         }
         return false;
     }
@@ -89,8 +89,13 @@ public class SqlTable implements SqlElement {
         return tableName;
     }
 
+    public  String getAlias() {
+        return "_" + tableName;
+    }
+
+
     public Optional<AbstractSqlColumn> getColumnByName(String columnName) {
-        return Optional.fromNullable(sqlTableColumns.get(columnName));
+        return Optional.fromNullable(sqlTableColumns.get(getAlias() + "." + columnName));
     }
 
     void addForeignKey(AbstractSqlColumn localColumn, AbstractSqlColumn foreignColumn) {
@@ -154,7 +159,6 @@ public class SqlTable implements SqlElement {
         if (!tableName.equals(sqlTable.tableName)) {
             return false;
         }
-
         return true;
     }
 

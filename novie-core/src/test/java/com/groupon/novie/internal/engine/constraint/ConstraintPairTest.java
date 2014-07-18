@@ -78,15 +78,15 @@ public class ConstraintPairTest {
         final StringBuilder stringBuilder = roor.generateConstraint(mapSqlParameterSource);
 
         Assert.assertEquals(mapSqlParameterSource.getValues().size(), 6);
-        Assert.assertEquals(mapSqlParameterSource.getValue("testDimension_testColumn5_0"), "test5%");
-        Assert.assertEquals(mapSqlParameterSource.getValue("testDimension_testColumn6_1"), 2);
-        Assert.assertEquals(mapSqlParameterSource.getValue("testDimension_testColumn_2"), "test%");
-        Assert.assertEquals(mapSqlParameterSource.getValue("testDimension_testColumn3_3"), 2);
-        Assert.assertEquals(mapSqlParameterSource.getValue("testDimension_testColumn2_4"), "");
-        Assert.assertEquals(mapSqlParameterSource.getValue("testDimension_testColumn4_5"), 2.34);
+        Assert.assertEquals(mapSqlParameterSource.getValue("_testdimensionname_testColumn5_0"), "test5%");
+        Assert.assertEquals(mapSqlParameterSource.getValue("_testdimensionname_testColumn6_1"), 2);
+        Assert.assertEquals(mapSqlParameterSource.getValue("_testdimensionname_testColumn_2"), "test%");
+        Assert.assertEquals(mapSqlParameterSource.getValue("_testdimensionname_testColumn3_3"), 2);
+        Assert.assertEquals(mapSqlParameterSource.getValue("_testdimensionname_testColumn2_4"), "");
+        Assert.assertEquals(mapSqlParameterSource.getValue("_testdimensionname_testColumn4_5"), 2.34);
         Assert.assertEquals(
                 stringBuilder.toString(),
-                "( ( testDimension.testColumn5 <= :testDimension_testColumn5_0 )  OR ( testDimension.testColumn6 = :testDimension_testColumn6_1 )  )  AND ( ( ( testDimension.testColumn not like :testDimension_testColumn_2 )  AND ( testDimension.testColumn3 >= :testDimension_testColumn3_3 )  )  OR ( ( testDimension.testColumn2 = :testDimension_testColumn2_4 )  AND ( testDimension.testColumn4 < :testDimension_testColumn4_5 )  )  ) ");
+                "( ( _testdimensionname.testColumn5 <= :_testdimensionname_testColumn5_0 )  OR ( _testdimensionname.testColumn6 = :_testdimensionname_testColumn6_1 )  )  AND ( ( ( _testdimensionname.testColumn not like :_testdimensionname_testColumn_2 )  AND ( _testdimensionname.testColumn3 >= :_testdimensionname_testColumn3_3 )  )  OR ( ( _testdimensionname.testColumn2 = :_testdimensionname_testColumn2_4 )  AND ( _testdimensionname.testColumn4 < :_testdimensionname_testColumn4_5 )  )  ) ");
 
     }
 }

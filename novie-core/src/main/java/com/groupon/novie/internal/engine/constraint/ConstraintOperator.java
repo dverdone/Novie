@@ -35,7 +35,7 @@ import com.groupon.novie.internal.engine.QueryOperator;
 import com.groupon.novie.internal.engine.schema.SqlElement;
 
 /**
- * @suthor damiano
+ * @author damiano
  * @since 6/6/13
  */
 public abstract class ConstraintOperator<L extends SqlElement, R extends SqlElement> implements Constraint {

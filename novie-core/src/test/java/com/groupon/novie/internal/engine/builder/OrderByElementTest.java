@@ -111,14 +111,14 @@ public class OrderByElementTest {
                 queryBuilderAccess.getSelectElement();
                 result = selectElement;
                 selectElement.getSqlTableColumns();
-                result = Collections.singletonMap("testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME"));
+                result = Collections.singletonMap("_testdimensionname.testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME"));
             }
         };
 
         Optional<OrderByElement> orderByElement = OrderByElement.createOrderByElement(queryBuilderAccess);
         assertTrue(orderByElement.isPresent());
         assertEquals(1, orderByElement.get().getSqlTables().size());
-        assertEquals("testDimension_testColumn DESC", orderByElement.get().getSqlString().toString());
+        assertEquals("_testdimensionname_testColumn DESC", orderByElement.get().getSqlString().toString());
 
     }
 
@@ -177,17 +177,17 @@ public class OrderByElementTest {
                 result = selectElement;
 
                 selectElement.getSqlTableColumns();
-                result = Collections.singletonMap("testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME1.1"));
+                result = Collections.singletonMap("_testdimensionname.testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME1.1"));
             }
         };
 
         Optional<OrderByElement> orderByElement = OrderByElement.createOrderByElement(queryBuilderAccess);
         assertTrue(orderByElement.isPresent());
         assertEquals(1, orderByElement.get().getSqlTables().size());
-        assertEquals("testDimension_testColumn DESC", orderByElement.get().getSqlString().toString());
+        assertEquals("_testdimensionname_testColumn DESC", orderByElement.get().getSqlString().toString());
         final Map resultMap = Maps.newHashMap();
-        resultMap.put("testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME1.1"));
-        resultMap.put("testColumn2", dimensionTable2.getSqlTableColumnByInformationName("TESTINFONAME2.2"));
+        resultMap.put("_testdimensionname.testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME1.1"));
+        resultMap.put("_testdimensionname2.testColumn2", dimensionTable2.getSqlTableColumnByInformationName("TESTINFONAME2.2"));
         new NonStrictExpectations(selectElement) {
             {
                 selectElement.getSqlTableColumns();
@@ -198,7 +198,7 @@ public class OrderByElementTest {
         Optional<OrderByElement> orderByElement2 = OrderByElement.createOrderByElement(queryBuilderAccess);
         assertTrue(orderByElement2.isPresent());
         assertEquals(2, orderByElement2.get().getSqlTables().size());
-        assertEquals("testDimension_testColumn DESC, testDimension2_testColumn2 ASC", orderByElement2.get().getSqlString().toString());
+        assertEquals("_testdimensionname_testColumn DESC, _testdimensionname2_testColumn2 ASC", orderByElement2.get().getSqlString().toString());
 
     }
 
@@ -265,14 +265,14 @@ public class OrderByElementTest {
                 queryBuilderAccess.getSelectElement();
                 result = selectElement;
                 selectElement.getSqlTableColumns();
-                result = Collections.singletonMap("testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME"));
+                result = Collections.singletonMap("_testdimensionname.testColumn", dimensionTable.getSqlTableColumnByInformationName("TESTINFONAME"));
             }
         };
 
         Optional<OrderByElement> orderByElement = OrderByElement.createOrderByElement(queryBuilderAccess);
         assertTrue(orderByElement.isPresent());
         assertEquals(1, orderByElement.get().getSqlTables().size());
-        assertEquals("testDimension_testColumn DESC", orderByElement.get().getSqlString().toString());
+        assertEquals("_testdimensionname_testColumn DESC", orderByElement.get().getSqlString().toString());
 
     }
 

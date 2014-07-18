@@ -76,7 +76,7 @@ public class FromElement extends SqlQueryBuilderElement {
             if (sb.length() > 0) {
                 sb.append(" , ");
             }
-            sb.append(sqlTable.getTableName());
+            sb.append(sqlTable.getTableName()).append(" ").append(sqlTable.getAlias());
         }
         return sb;
     }

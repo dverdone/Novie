@@ -45,7 +45,7 @@ public abstract class ReferenceSqlConstraint<T> implements SqlElement {
 
     protected ReferenceSqlConstraint(String referenceName, T value) {
         super();
-        this.referenceName = referenceName;
+        this.referenceName = referenceName.replaceAll("/", "_");
         this.value = value;
     }
 

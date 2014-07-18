@@ -91,14 +91,14 @@ public class WhereElementTest {
                 // dimensionTable.getSqlTableColumnByInformationName(rawConstraint.getInformationName());
                 mapSqlParameterSource.getValues();
                 result = Maps.newHashMap();
-                mapSqlParameterSource.addValue("testDimension_testColumn_0", "test%", ColumnDataType.STRING.getSqlType());
+                mapSqlParameterSource.addValue("_testdimensionname_testColumn_0", "test%", ColumnDataType.STRING.getSqlType());
             }
         };
 
         WhereElement whereElement = WhereElement.createWhereElement(queryBuilderAccess);
         Assert.assertEquals(whereElement.getSqlTables().size(), 1);
         StringBuilder stringBuilder = whereElement.getConstraints().generateConstraint(mapSqlParameterSource);
-        Assert.assertEquals(stringBuilder.toString(), "testDimension.testColumn like :testDimension_testColumn_0");
+        Assert.assertEquals("_testdimensionname.testColumn like :_testdimensionname_testColumn_0", stringBuilder.toString());
 
     }
 
@@ -140,19 +140,19 @@ public class WhereElementTest {
 
                 mapSqlParameterSource.getValues();
                 result = Maps.newHashMap();
-                mapSqlParameterSource.addValue("testDimension_testColumn_0", "test%", ColumnDataType.STRING.getSqlType());
+                mapSqlParameterSource.addValue("_testdimensionname_testColumn_0", "test%", ColumnDataType.STRING.getSqlType());
 
                 mapSqlParameterSource.getValues();
                 result = Collections.singletonMap(1, "1");
-                mapSqlParameterSource.addValue("testDimension_testColumn_1", "test2", ColumnDataType.STRING.getSqlType());
+                mapSqlParameterSource.addValue("_testdimensionname_testColumn_1", "test2", ColumnDataType.STRING.getSqlType());
             }
         };
 
         WhereElement whereElement = WhereElement.createWhereElement(queryBuilderAccess);
         Assert.assertEquals(whereElement.getSqlTables().size(), 1);
         StringBuilder stringBuilder = whereElement.getConstraints().generateConstraint(mapSqlParameterSource);
-        Assert.assertEquals(stringBuilder.toString(),
-                "( testDimension.testColumn like :testDimension_testColumn_0 )  AND ( testDimension.testColumn > :testDimension_testColumn_1 ) ");
+        Assert.assertEquals("( _testdimensionname.testColumn like :_testdimensionname_testColumn_0 )  AND ( _testdimensionname.testColumn > :_testdimensionname_testColumn_1 ) ",
+                stringBuilder.toString());
 
     }
 
@@ -189,18 +189,19 @@ public class WhereElementTest {
 
                 mapSqlParameterSource.getValues();
                 result = Maps.newHashMap();
-                mapSqlParameterSource.addValue("testDimension_testColumn_0", "USD", ColumnDataType.STRING.getSqlType());
+                mapSqlParameterSource.addValue("_testdimensionname_testColumn_0", "USD", ColumnDataType.STRING.getSqlType());
 
                 mapSqlParameterSource.getValues();
                 result = Collections.singletonMap(1, "1");
-                mapSqlParameterSource.addValue("testDimension_testColumn_1", "EU", ColumnDataType.STRING.getSqlType());
+                mapSqlParameterSource.addValue("_testdimensionname_testColumn_1", "EU", ColumnDataType.STRING.getSqlType());
             }
         };
 
         WhereElement whereElement = WhereElement.createWhereElement(queryBuilderAccess);
         Assert.assertEquals(whereElement.getSqlTables().size(), 1);
         StringBuilder stringBuilder = whereElement.getConstraints().generateConstraint(mapSqlParameterSource);
-        Assert.assertEquals(stringBuilder.toString(),
-                "( testDimension.testColumn = :testDimension_testColumn_0 )  OR ( testDimension.testColumn = :testDimension_testColumn_1 ) ");
+        Assert.assertEquals(
+                "( _testdimensionname.testColumn = :_testdimensionname_testColumn_0 )  OR ( _testdimensionname.testColumn = :_testdimensionname_testColumn_1 ) ",
+                stringBuilder.toString() );
     }
 }
